@@ -1,4 +1,4 @@
-package com.googry.dino_naver_data
+package com.googry.naver
 
 import org.junit.Test
 

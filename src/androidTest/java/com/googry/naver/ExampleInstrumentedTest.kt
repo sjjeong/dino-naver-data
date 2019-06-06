@@ -1,4 +1,4 @@
-package com.googry.dino_naver_data
+package com.googry.naver
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
