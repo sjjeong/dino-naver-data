@@ -5,7 +5,7 @@ import com.googry.naver.remote.api.NaverSearchApi
 import com.googry.naver.remote.model.search.toData
 import com.googry.naver.repository.source.NaverSearchDataSource
 
-class NaverSearchRemoteSearchDataSourceImpl(
+class NaverSearchRemoteDataSourceImpl(
     private val naverSearchApi: NaverSearchApi
 ) : NaverSearchDataSource {
     override suspend fun fetchBlogAsync(
