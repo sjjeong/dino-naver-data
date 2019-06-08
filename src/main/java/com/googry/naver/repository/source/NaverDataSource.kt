@@ -5,21 +5,21 @@ import com.googry.naver.remote.model.enums.*
 import com.googry.naver.remote.model.search.*
 
 interface NaverDataSource {
-    suspend fun getBlogAsync(
+    suspend fun fetchBlogAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
     ): NaverSearchBlogResponse
 
-    suspend fun getNewsAsync(
+    suspend fun fetchNewsAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
     ): NaverSearchNewsResponse
 
-    suspend fun getBookAsync(
+    suspend fun fetchBookAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -34,17 +34,17 @@ interface NaverDataSource {
         dCatg: String = ""
     ): NaverSearchBookResponse
 
-    suspend fun getAdultAsync(
+    suspend fun fetchAdultAsync(
         query: String
     ): NaverSearchAdultResponse
 
-    suspend fun getEncycAsync(
+    suspend fun fetchEncycAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
     ): NaverSearchEncycResponse
 
-    suspend fun getMovieAsync(
+    suspend fun fetchMovieAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -54,38 +54,38 @@ interface NaverDataSource {
         yearTo: Int? = null
     ): NaverSearchMovieResponse
 
-    suspend fun getCafearticleAsync(
+    suspend fun fetchCafearticleAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
     ): NaverSearchCafearticleResponse
 
-    suspend fun getKinAsync(
+    suspend fun fetchKinAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchKinSortCategory = NaverSearchKinSortCategory.SIM
     ): NaverSearchKinResponse
 
-    suspend fun getLocalAsync(
+    suspend fun fetchLocalAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchLocalCategory = NaverSearchLocalCategory.RANDOM
     ): NaverSearchLocalResponse
 
-    suspend fun getErrataAsync(
+    suspend fun fetchErrataAsync(
         query: String
     ): NaverSearchErrataResponse
 
-    suspend fun getWebkrAsync(
+    suspend fun fetchWebkrAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
     ): NaverSearchWebkrResponse
 
-    suspend fun getImageAsync(
+    suspend fun fetchImageAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -93,14 +93,14 @@ interface NaverDataSource {
         filter: NaverSearchImageFilterCategory = NaverSearchImageFilterCategory.ALL
     ): NaverSearchImageResponse
 
-    suspend fun getShopAsync(
+    suspend fun fetchShopAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchShoppingSortCategory = NaverSearchShoppingSortCategory.SIM
     ): NaverSearchShopResponse
 
-    suspend fun getDocAsync(
+    suspend fun fetchDocAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1

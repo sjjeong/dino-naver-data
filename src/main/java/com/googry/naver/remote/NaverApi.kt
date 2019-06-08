@@ -10,7 +10,7 @@ interface NaverApi {
     // 블로그
     // https://developers.naver.com/docs/search/blog/
     @GET("v1/search/blog.json")
-    suspend fun blog(
+    suspend fun fetchBlog(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -20,7 +20,7 @@ interface NaverApi {
     // 뉴스
     // https://developers.naver.com/docs/search/news/
     @GET("v1/search/news.json")
-    suspend fun news(
+    suspend fun fetchNews(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -30,7 +30,7 @@ interface NaverApi {
     // 책
     // https://developers.naver.com/docs/search/book/
     @GET("v1/search/book.json")
-    suspend fun book(
+    suspend fun fetchBook(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -48,14 +48,14 @@ interface NaverApi {
     // 성인 검색어 판별
     // https://developers.naver.com/docs/search/adult/
     @GET("v1/search/adult.json")
-    suspend fun adult(
+    suspend fun fetchAdult(
         @Query("query") query: String
     ): NaverSearchAdultResponse
 
     // 백과사전
     // https://developers.naver.com/docs/search/encyclopedia/
     @GET("v1/search/encyc.json")
-    suspend fun encyc(
+    suspend fun fetchEncyc(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
@@ -64,7 +64,7 @@ interface NaverApi {
     // 영화
     // https://developers.naver.com/docs/search/movie/
     @GET("v1/search/movie.json")
-    suspend fun movie(
+    suspend fun fetchMovie(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -77,7 +77,7 @@ interface NaverApi {
     // 카페글
     // https://developers.naver.com/docs/search/cafearticle/
     @GET("v1/search/cafearticle.json")
-    suspend fun cafearticle(
+    suspend fun fetchCafearticle(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -87,7 +87,7 @@ interface NaverApi {
     // 지식iN
     // https://developers.naver.com/docs/search/kin/
     @GET("v1/search/kin.json")
-    suspend fun kin(
+    suspend fun fetchKin(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -97,7 +97,7 @@ interface NaverApi {
     // 지역
     // https://developers.naver.com/docs/search/local/
     @GET("v1/search/local.json")
-    suspend fun local(
+    suspend fun fetchLocal(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -107,14 +107,14 @@ interface NaverApi {
     // 오타변환
     // https://developers.naver.com/docs/search/errata/
     @GET("v1/search/errata.json")
-    suspend fun errata(
+    suspend fun fetchErrata(
         @Query("query") query: String
     ): NaverSearchErrataResponse
 
     // 웹문서
     // https://developers.naver.com/docs/search/web/
     @GET("v1/search/webkr.json")
-    suspend fun webkr(
+    suspend fun fetchWebkr(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
@@ -123,7 +123,7 @@ interface NaverApi {
     // 이미지
     // https://developers.naver.com/docs/search/image/
     @GET("v1/search/image")
-    suspend fun image(
+    suspend fun fetchImage(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -134,7 +134,7 @@ interface NaverApi {
     // 쇼핑
     // https://developers.naver.com/docs/search/shopping/
     @GET("v1/search/shop.json")
-    suspend fun shop(
+    suspend fun fetchShop(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int,
@@ -144,7 +144,7 @@ interface NaverApi {
     // 전문자료
     // https://developers.naver.com/docs/search/doc/
     @GET("v1/search/doc.json")
-    suspend fun doc(
+    suspend fun fetchDoc(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
