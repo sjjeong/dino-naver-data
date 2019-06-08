@@ -1,6 +1,6 @@
 package com.googry.naver.remote.api
 
-import com.googry.naver.remote.model.enums.*
+import com.googry.naver.domain.model.enums.*
 import com.googry.naver.remote.model.search.*
 import retrofit2.http.GET
 import retrofit2.http.Query

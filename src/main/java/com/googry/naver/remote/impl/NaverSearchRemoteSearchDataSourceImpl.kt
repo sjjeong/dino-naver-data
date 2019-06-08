@@ -1,7 +1,7 @@
 package com.googry.naver.remote.impl
 
+import com.googry.naver.domain.model.enums.*
 import com.googry.naver.remote.api.NaverSearchApi
-import com.googry.naver.remote.model.enums.*
 import com.googry.naver.remote.model.search.toData
 import com.googry.naver.repository.source.NaverSearchDataSource
 

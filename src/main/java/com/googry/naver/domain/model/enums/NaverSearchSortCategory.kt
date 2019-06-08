@@ -1,4 +1,4 @@
-package com.googry.naver.remote.model.enums
+package com.googry.naver.domain.model.enums
 
 enum class NaverSearchSortCategory(
     private val value: String

@@ -1,7 +1,7 @@
 package com.googry.naver.repository.source
 
 import androidx.annotation.IntRange
-import com.googry.naver.remote.model.enums.*
+import com.googry.naver.domain.model.enums.*
 import com.googry.naver.repository.model.search.*
 
 interface NaverSearchDataSource {
