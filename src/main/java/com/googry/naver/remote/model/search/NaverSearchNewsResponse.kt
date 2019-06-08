@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchNewsEntity
 
 data class NaverSearchNewsResponse(
     @SerializedName("display")
@@ -27,3 +28,14 @@ data class NaverSearchNewsResponse(
         val title: String
     )
 }
+
+fun NaverSearchNewsResponse.toData() =
+    items.map {
+        NaverSearchNewsEntity(
+            description = it.description,
+            link = it.link,
+            originalLink = it.originalLink,
+            pubDate = it.pubDate,
+            title = it.title
+        )
+    }

@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchBlogEntity
 
 data class NaverSearchBlogResponse(
     @SerializedName("display")
@@ -29,3 +30,15 @@ data class NaverSearchBlogResponse(
         val title: String
     )
 }
+
+fun NaverSearchBlogResponse.toData() =
+    items.map {
+        NaverSearchBlogEntity(
+            bloggerLink = it.bloggerLink,
+            bloggerName = it.bloggerName,
+            description = it.description,
+            link = it.link,
+            postdate = it.postdate,
+            title = it.title
+        )
+    }

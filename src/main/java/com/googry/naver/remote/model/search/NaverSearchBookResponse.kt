@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchBookEntity
 
 data class NaverSearchBookResponse(
     @SerializedName("display")
@@ -30,10 +31,26 @@ data class NaverSearchBookResponse(
         @SerializedName("price")
         val price: String,
         @SerializedName("pubdate")
-        val pubdate: String,
+        val pubDate: String,
         @SerializedName("publisher")
         val publisher: String,
         @SerializedName("title")
         val title: String
     )
 }
+
+fun NaverSearchBookResponse.toData() =
+    items.map {
+        NaverSearchBookEntity(
+            author = it.author,
+            description = it.description,
+            discount = it.discount,
+            image = it.image,
+            isbn = it.isbn,
+            link = it.link,
+            price = it.price,
+            pubDate = it.pubDate,
+            publisher = it.publisher,
+            title = it.title
+        )
+    }

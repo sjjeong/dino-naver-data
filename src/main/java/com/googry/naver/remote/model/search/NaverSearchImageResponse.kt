@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchImageEntity
 
 data class NaverSearchImageResponse(
     @SerializedName("display")
@@ -27,3 +28,14 @@ data class NaverSearchImageResponse(
         val title: String
     )
 }
+
+fun NaverSearchImageResponse.toData() =
+    items.map {
+        NaverSearchImageEntity(
+            link = it.link,
+            sizeHeight = it.sizeHeight,
+            sizeWidth = it.sizeWidth,
+            thumbnail = it.thumbnail,
+            title = it.title
+        )
+    }

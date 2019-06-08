@@ -2,7 +2,7 @@ package com.googry.naver.repository.source
 
 import androidx.annotation.IntRange
 import com.googry.naver.remote.model.enums.*
-import com.googry.naver.remote.model.search.*
+import com.googry.naver.repository.model.search.*
 
 interface NaverDataSource {
     suspend fun fetchBlogAsync(
@@ -10,14 +10,14 @@ interface NaverDataSource {
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): NaverSearchBlogResponse
+    ): List<NaverSearchBlogEntity>
 
     suspend fun fetchNewsAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): NaverSearchNewsResponse
+    ): List<NaverSearchNewsEntity>
 
     suspend fun fetchBookAsync(
         query: String,
@@ -32,17 +32,17 @@ interface NaverDataSource {
         dDafr: String = "",
         dDato: String = "",
         dCatg: String = ""
-    ): NaverSearchBookResponse
+    ): List<NaverSearchBookEntity>
 
     suspend fun fetchAdultAsync(
         query: String
-    ): NaverSearchAdultResponse
+    ): NaverSearchAdultEntity
 
     suspend fun fetchEncycAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): NaverSearchEncycResponse
+    ): List<NaverSearchEncycEntity>
 
     suspend fun fetchMovieAsync(
         query: String,
@@ -52,38 +52,38 @@ interface NaverDataSource {
         country: NaverSearchCountryCategory? = null,
         yearFrom: Int? = null,
         yearTo: Int? = null
-    ): NaverSearchMovieResponse
+    ): List<NaverSearchMovieEntity>
 
     suspend fun fetchCafearticleAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): NaverSearchCafearticleResponse
+    ): List<NaverSearchCafearticleEntity>
 
     suspend fun fetchKinAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchKinSortCategory = NaverSearchKinSortCategory.SIM
-    ): NaverSearchKinResponse
+    ): List<NaverSearchKinEntity>
 
     suspend fun fetchLocalAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchLocalCategory = NaverSearchLocalCategory.RANDOM
-    ): NaverSearchLocalResponse
+    ): List<NaverSearchLocalEntity>
 
     suspend fun fetchErrataAsync(
         query: String
-    ): NaverSearchErrataResponse
+    ): NaverSearchErrataEntity
 
     suspend fun fetchWebkrAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): NaverSearchWebkrResponse
+    ): List<NaverSearchWebkrEntity>
 
     suspend fun fetchImageAsync(
         query: String,
@@ -91,19 +91,19 @@ interface NaverDataSource {
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchLocalCategory = NaverSearchLocalCategory.RANDOM,
         filter: NaverSearchImageFilterCategory = NaverSearchImageFilterCategory.ALL
-    ): NaverSearchImageResponse
+    ): List<NaverSearchImageEntity>
 
     suspend fun fetchShopAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchShoppingSortCategory = NaverSearchShoppingSortCategory.SIM
-    ): NaverSearchShopResponse
+    ): List<NaverSearchShopEntity>
 
     suspend fun fetchDocAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): NaverSearchDocResponse
+    ): List<NaverSearchDocEntity>
 
 }

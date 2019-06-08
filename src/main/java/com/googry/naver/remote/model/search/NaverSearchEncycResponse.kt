@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchEncycEntity
 
 data class NaverSearchEncycResponse(
     @SerializedName("display")
@@ -25,3 +26,13 @@ data class NaverSearchEncycResponse(
         val title: String
     )
 }
+
+fun NaverSearchEncycResponse.toData() =
+    items.map {
+        NaverSearchEncycEntity(
+            description = it.description,
+            link = it.link,
+            thumbnail = it.thumbnail,
+            title = it.title
+        )
+    }

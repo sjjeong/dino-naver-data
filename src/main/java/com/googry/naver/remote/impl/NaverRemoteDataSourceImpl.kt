@@ -2,7 +2,7 @@ package com.googry.naver.remote.impl
 
 import com.googry.naver.remote.NaverApi
 import com.googry.naver.remote.model.enums.*
-import com.googry.naver.remote.model.search.*
+import com.googry.naver.remote.model.search.toData
 import com.googry.naver.repository.source.NaverDataSource
 
 class NaverRemoteDataSourceImpl(
@@ -13,16 +13,16 @@ class NaverRemoteDataSourceImpl(
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): NaverSearchBlogResponse =
-        naverApi.fetchBlog(query, display, start, sort)
+    ) =
+        naverApi.fetchBlog(query, display, start, sort).toData()
 
     override suspend fun fetchNewsAsync(
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): NaverSearchNewsResponse =
-        naverApi.fetchNews(query, display, start, sort)
+    ) =
+        naverApi.fetchNews(query, display, start, sort).toData()
 
     override suspend fun fetchBookAsync(
         query: String,
@@ -37,7 +37,7 @@ class NaverRemoteDataSourceImpl(
         dDafr: String,
         dDato: String,
         dCatg: String
-    ): NaverSearchBookResponse =
+    ) =
         naverApi.fetchBook(
             query,
             display,
@@ -51,17 +51,17 @@ class NaverRemoteDataSourceImpl(
             dDafr,
             dDato,
             dCatg
-        )
+        ).toData()
 
-    override suspend fun fetchAdultAsync(query: String): NaverSearchAdultResponse =
-        naverApi.fetchAdult(query)
+    override suspend fun fetchAdultAsync(query: String) =
+        naverApi.fetchAdult(query).toData()
 
     override suspend fun fetchEncycAsync(
         query: String,
         display: Int,
         start: Int
-    ): NaverSearchEncycResponse =
-        naverApi.fetchEncyc(query, display, start)
+    ) =
+        naverApi.fetchEncyc(query, display, start).toData()
 
     override suspend fun fetchMovieAsync(
         query: String,
@@ -71,42 +71,42 @@ class NaverRemoteDataSourceImpl(
         country: NaverSearchCountryCategory?,
         yearFrom: Int?,
         yearTo: Int?
-    ): NaverSearchMovieResponse =
-        naverApi.fetchMovie(query, display, start, genre, country, yearFrom, yearTo)
+    ) =
+        naverApi.fetchMovie(query, display, start, genre, country, yearFrom, yearTo).toData()
 
     override suspend fun fetchCafearticleAsync(
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): NaverSearchCafearticleResponse =
-        naverApi.fetchCafearticle(query, display, start, sort)
+    ) =
+        naverApi.fetchCafearticle(query, display, start, sort).toData()
 
     override suspend fun fetchKinAsync(
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchKinSortCategory
-    ): NaverSearchKinResponse =
-        naverApi.fetchKin(query, display, start, sort)
+    ) =
+        naverApi.fetchKin(query, display, start, sort).toData()
 
     override suspend fun fetchLocalAsync(
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory
-    ): NaverSearchLocalResponse =
-        naverApi.fetchLocal(query, display, start, sort)
+    ) =
+        naverApi.fetchLocal(query, display, start, sort).toData()
 
-    override suspend fun fetchErrataAsync(query: String): NaverSearchErrataResponse =
-        naverApi.fetchErrata(query)
+    override suspend fun fetchErrataAsync(query: String) =
+        naverApi.fetchErrata(query).toData()
 
     override suspend fun fetchWebkrAsync(
         query: String,
         display: Int,
         start: Int
-    ): NaverSearchWebkrResponse =
-        naverApi.fetchWebkr(query, display, start)
+    ) =
+        naverApi.fetchWebkr(query, display, start).toData()
 
     override suspend fun fetchImageAsync(
         query: String,
@@ -114,22 +114,22 @@ class NaverRemoteDataSourceImpl(
         start: Int,
         sort: NaverSearchLocalCategory,
         filter: NaverSearchImageFilterCategory
-    ): NaverSearchImageResponse =
-        naverApi.fetchImage(query, display, start, sort, filter)
+    ) =
+        naverApi.fetchImage(query, display, start, sort, filter).toData()
 
     override suspend fun fetchShopAsync(
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchShoppingSortCategory
-    ): NaverSearchShopResponse =
-        naverApi.fetchShop(query, display, start, sort)
+    ) =
+        naverApi.fetchShop(query, display, start, sort).toData()
 
     override suspend fun fetchDocAsync(
         query: String,
         display: Int,
         start: Int
-    ): NaverSearchDocResponse =
-        naverApi.fetchDoc(query, display, start)
+    ) =
+        naverApi.fetchDoc(query, display, start).toData()
 
 }

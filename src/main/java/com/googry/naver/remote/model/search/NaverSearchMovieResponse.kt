@@ -1,6 +1,7 @@
 package com.googry.naver.remote.model.search
 
 import com.google.gson.annotations.SerializedName
+import com.googry.naver.repository.model.search.NaverSearchMovieEntity
 
 data class NaverSearchMovieResponse(
     @SerializedName("display")
@@ -33,3 +34,17 @@ data class NaverSearchMovieResponse(
         val userRating: String
     )
 }
+
+fun NaverSearchMovieResponse.toData() =
+    items.map {
+        NaverSearchMovieEntity(
+            actor = it.actor,
+            director = it.director,
+            image = it.image,
+            link = it.link,
+            pubDate = it.pubDate,
+            subtitle = it.subtitle,
+            title = it.title,
+            userRating = it.userRating
+        )
+    }
