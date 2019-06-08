@@ -1,11 +1,11 @@
-package com.googry.naver.remote
+package com.googry.naver.remote.api
 
 import com.googry.naver.remote.model.enums.*
 import com.googry.naver.remote.model.search.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NaverApi {
+interface NaverSearchApi {
 
     // 블로그
     // https://developers.naver.com/docs/search/blog/

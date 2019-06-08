@@ -4,7 +4,7 @@ import androidx.annotation.IntRange
 import com.googry.naver.remote.model.enums.*
 import com.googry.naver.repository.model.search.*
 
-interface NaverDataSource {
+interface NaverSearchDataSource {
     suspend fun fetchBlogAsync(
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
