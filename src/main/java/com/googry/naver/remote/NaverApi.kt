@@ -1,133 +1,153 @@
 package com.googry.naver.remote
 
-import com.googry.naver.remote.model.search.NaverSearchBlogResponse
-import com.googry.naver.remote.model.search.NaverSearchBookResponse
-import com.googry.naver.remote.model.search.NaverSearchNewsResponse
-import com.googry.naver.remote.model.search.NaverSearchAdultResponse
-import com.googry.naver.remote.model.search.NaverSearchEncycResponse
-import com.googry.naver.remote.model.search.NaverSearchMovieResponse
-import com.googry.naver.remote.model.search.NaverSearchCafearticleResponse
-import com.googry.naver.remote.model.search.NaverSearchKinResponse
-import com.googry.naver.remote.model.search.NaverSearchLocalResponse
-import com.googry.naver.remote.model.search.NaverSearchErrataResponse
-import com.googry.naver.remote.model.search.NaverSearchWebkrResponse
-import com.googry.naver.remote.model.search.NaverSearchImageResponse
-import com.googry.naver.remote.model.search.NaverSearchShopResponse
-import com.googry.naver.remote.model.search.NaverSearchDocResponse
-import kotlinx.coroutines.Deferred
+import com.googry.naver.remote.model.enums.*
+import com.googry.naver.remote.model.search.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NaverApi {
 
     // 블로그
+    // https://developers.naver.com/docs/search/blog/
     @GET("v1/search/blog.json")
-    fun blog(
+    suspend fun blog(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchBlogResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchSortCategory
+    ): NaverSearchBlogResponse
 
     // 뉴스
+    // https://developers.naver.com/docs/search/news/
     @GET("v1/search/news.json")
-    fun news(
+    suspend fun news(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchNewsResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchSortCategory
+    ): NaverSearchNewsResponse
 
     // 책
+    // https://developers.naver.com/docs/search/book/
     @GET("v1/search/book.json")
-    fun book(
+    suspend fun book(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchBookResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchSortCategory,
+        @Query("d_titl") dTitl: String,
+        @Query("d_auth") dAuth: String,
+        @Query("d_cont") dCont: String,
+        @Query("d_isbn") dIsbn: String,
+        @Query("d_publ") dPubl: String,
+        @Query("d_dafr") dDafr: String,
+        @Query("d_dato") dDato: String,
+        @Query("d_catg") dCatg: String
+    ): NaverSearchBookResponse
 
     // 성인 검색어 판별
+    // https://developers.naver.com/docs/search/adult/
     @GET("v1/search/adult.json")
-    fun adult(
+    suspend fun adult(
         @Query("query") query: String
-    ): Deferred<NaverSearchAdultResponse>
+    ): NaverSearchAdultResponse
 
     // 백과사전
+    // https://developers.naver.com/docs/search/encyclopedia/
     @GET("v1/search/encyc.json")
-    fun encyc(
+    suspend fun encyc(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
-    ): Deferred<NaverSearchEncycResponse>
+    ): NaverSearchEncycResponse
 
     // 영화
+    // https://developers.naver.com/docs/search/movie/
     @GET("v1/search/movie.json")
-    fun movie(
+    suspend fun movie(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchMovieResponse>
+        @Query("start") start: Int,
+        @Query("genre") genre: NaverSearchMovieCategory? = null,
+        @Query("country") country: NaverSearchCountryCategory? = null,
+        @Query("yearfrom") yearFrom: Int? = null,
+        @Query("yearto") yearTo: Int? = null
+    ): NaverSearchMovieResponse
 
     // 카페글
+    // https://developers.naver.com/docs/search/cafearticle/
     @GET("v1/search/cafearticle.json")
-    fun cafearticle(
+    suspend fun cafearticle(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchCafearticleResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchSortCategory
+    ): NaverSearchCafearticleResponse
 
     // 지식iN
+    // https://developers.naver.com/docs/search/kin/
     @GET("v1/search/kin.json")
-    fun kin(
+    suspend fun kin(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchKinResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchKinSortCategory
+    ): NaverSearchKinResponse
 
     // 지역
+    // https://developers.naver.com/docs/search/local/
     @GET("v1/search/local.json")
-    fun local(
+    suspend fun local(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchLocalResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchLocalCategory
+    ): NaverSearchLocalResponse
 
     // 오타변환
+    // https://developers.naver.com/docs/search/errata/
     @GET("v1/search/errata.json")
-    fun errata(
-        @Query("query") query: String,
-        @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchErrataResponse>
+    suspend fun errata(
+        @Query("query") query: String
+    ): NaverSearchErrataResponse
 
     // 웹문서
+    // https://developers.naver.com/docs/search/web/
     @GET("v1/search/webkr.json")
-    fun webkr(
+    suspend fun webkr(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
-    ): Deferred<NaverSearchWebkrResponse>
+    ): NaverSearchWebkrResponse
 
     // 이미지
+    // https://developers.naver.com/docs/search/image/
     @GET("v1/search/image")
-    fun image(
+    suspend fun image(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchImageResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchLocalCategory,
+        @Query("filter") filter: NaverSearchImageFilterCategory
+    ): NaverSearchImageResponse
 
     // 쇼핑
+    // https://developers.naver.com/docs/search/shopping/
     @GET("v1/search/shop.json")
-    fun shop(
+    suspend fun shop(
         @Query("query") query: String,
         @Query("display") display: Int,
-        @Query("start") start: Int
-    ): Deferred<NaverSearchShopResponse>
+        @Query("start") start: Int,
+        @Query("sort") sort: NaverSearchShoppingSortCategory
+    ): NaverSearchShopResponse
 
     // 전문자료
+    // https://developers.naver.com/docs/search/doc/
     @GET("v1/search/doc.json")
-    fun doc(
+    suspend fun doc(
         @Query("query") query: String,
         @Query("display") display: Int,
         @Query("start") start: Int
-    ): Deferred<NaverSearchDocResponse>
+    ): NaverSearchDocResponse
 
 }
