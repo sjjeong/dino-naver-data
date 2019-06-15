@@ -1,57 +1,75 @@
 package com.googry.naver.repository.impl
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.dino.library.data.DataResource
 import com.googry.naver.domain.model.enums.*
 import com.googry.naver.domain.model.search.*
 import com.googry.naver.domain.repository.NaverSearchRepository
 import com.googry.naver.repository.model.search.toDomain
 import com.googry.naver.repository.source.NaverSearchDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class NaverSearchRepositoryImpl(
     private val naverSearchRemoteDataSource: NaverSearchDataSource
 ) : NaverSearchRepository {
 
     override suspend fun getBlog(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): LiveData<DataResource<List<NaverSearchBlog>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchBlog>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchBlog>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchBlogAsync(query, display, start, sort).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchBlogAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getNews(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): LiveData<DataResource<List<NaverSearchNews>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchNews>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchNews>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchNewsAsync(query, display, start, sort).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchNewsAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getBook(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
@@ -64,11 +82,12 @@ class NaverSearchRepositoryImpl(
         dDafr: String,
         dDato: String,
         dCatg: String
-    ): LiveData<DataResource<List<NaverSearchBook>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchBook>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchBook>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
+            emit(DataResource.success(
                 naverSearchRemoteDataSource.fetchBookAsync(
+                    clientId, clientSecret,
                     query,
                     display,
                     start,
@@ -84,44 +103,59 @@ class NaverSearchRepositoryImpl(
                 ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
-    override suspend fun getAdult(query: String): LiveData<DataResource<NaverSearchAdult>> {
-        val liveData = MutableLiveData<DataResource<NaverSearchAdult>>(DataResource.loading())
+    override suspend fun getAdult(
+        clientId: String,
+        clientSecret: String,
+        query: String
+    ): Flow<DataResource<NaverSearchAdult>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchAdultAsync(query).toDomain()
-            )
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchAdultAsync(
+                    clientId,
+                    clientSecret,
+                    query
+                ).toDomain()
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getEncyc(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
-    ): LiveData<DataResource<List<NaverSearchEncyc>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchEncyc>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchEncyc>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchEncycAsync(query, display, start).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchEncycAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getMovie(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
@@ -129,11 +163,12 @@ class NaverSearchRepositoryImpl(
         country: NaverSearchCountryCategory?,
         yearFrom: Int?,
         yearTo: Int?
-    ): LiveData<DataResource<List<NaverSearchMovie>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchMovie>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchMovie>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
+            emit(DataResource.success(
                 naverSearchRemoteDataSource.fetchMovieAsync(
+                    clientId, clientSecret,
                     query,
                     display,
                     start,
@@ -144,112 +179,152 @@ class NaverSearchRepositoryImpl(
                 ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getCafearticle(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): LiveData<DataResource<List<NaverSearchCafearticle>>> {
+    ): Flow<DataResource<List<NaverSearchCafearticle>>> = flow {
+        emit(DataResource.loading())
         val liveData =
-            MutableLiveData<DataResource<List<NaverSearchCafearticle>>>(DataResource.loading())
-        try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchCafearticleAsync(query, display, start, sort).map {
-                    it.toDomain()
-                }
-            )
-        } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
-        }
-        return liveData
+            try {
+                emit(DataResource.success(
+                    naverSearchRemoteDataSource.fetchCafearticleAsync(
+                        clientId,
+                        clientSecret,
+                        query,
+                        display,
+                        start,
+                        sort
+                    ).map {
+                        it.toDomain()
+                    }
+                ))
+            } catch (e: Exception) {
+                emit(DataResource.error(e))
+            }
     }
 
     override suspend fun getKin(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchKinSortCategory
-    ): LiveData<DataResource<List<NaverSearchKin>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchKin>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchKin>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchKinAsync(query, display, start, sort).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchKinAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getLocal(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory
-    ): LiveData<DataResource<List<NaverSearchLocal>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchLocal>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchLocal>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchLocalAsync(query, display, start, sort).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchLocalAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
-    override suspend fun getErrata(query: String): LiveData<DataResource<NaverSearchErrata>> {
-        val liveData = MutableLiveData<DataResource<NaverSearchErrata>>(DataResource.loading())
+    override suspend fun getErrata(
+        clientId: String,
+        clientSecret: String,
+        query: String
+    ): Flow<DataResource<NaverSearchErrata>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchErrataAsync(query).toDomain()
-            )
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchErrataAsync(
+                    clientId,
+                    clientSecret,
+                    query
+                ).toDomain()
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getWebkr(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
-    ): LiveData<DataResource<List<NaverSearchWebkr>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchWebkr>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchWebkr>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchWebkrAsync(query, display, start).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchWebkrAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getImage(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory,
         filter: NaverSearchImageFilterCategory
-    ): LiveData<DataResource<List<NaverSearchImage>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchImage>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchImage>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
+            emit(DataResource.success(
                 naverSearchRemoteDataSource.fetchImageAsync(
+                    clientId, clientSecret,
                     query,
                     display,
                     start,
@@ -258,47 +333,61 @@ class NaverSearchRepositoryImpl(
                 ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getShop(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchShoppingSortCategory
-    ): LiveData<DataResource<List<NaverSearchShop>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchShop>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchShop>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchShopAsync(query, display, start, sort).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchShopAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 
     override suspend fun getDoc(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
-    ): LiveData<DataResource<List<NaverSearchDoc>>> {
-        val liveData = MutableLiveData<DataResource<List<NaverSearchDoc>>>(DataResource.loading())
+    ): Flow<DataResource<List<NaverSearchDoc>>> = flow {
+        emit(DataResource.loading())
         try {
-            liveData.value = DataResource.success(
-                naverSearchRemoteDataSource.fetchDocAsync(query, display, start).map {
+            emit(DataResource.success(
+                naverSearchRemoteDataSource.fetchDocAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start
+                ).map {
                     it.toDomain()
                 }
-            )
+            ))
         } catch (e: Exception) {
-            liveData.value = DataResource.error(e)
+            emit(DataResource.error(e))
         }
-        return liveData
     }
 }

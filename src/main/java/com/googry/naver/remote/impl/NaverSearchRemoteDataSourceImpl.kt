@@ -9,22 +9,28 @@ class NaverSearchRemoteDataSourceImpl(
     private val naverSearchApi: NaverSearchApi
 ) : NaverSearchDataSource {
     override suspend fun fetchBlogAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
     ) =
-        naverSearchApi.fetchBlog(query, display, start, sort).toData()
+        naverSearchApi.fetchBlog(clientId, clientSecret, query, display, start, sort).toData()
 
     override suspend fun fetchNewsAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
     ) =
-        naverSearchApi.fetchNews(query, display, start, sort).toData()
+        naverSearchApi.fetchNews(clientId, clientSecret, query, display, start, sort).toData()
 
     override suspend fun fetchBookAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
@@ -39,6 +45,7 @@ class NaverSearchRemoteDataSourceImpl(
         dCatg: String
     ) =
         naverSearchApi.fetchBook(
+            clientId, clientSecret,
             query,
             display,
             start,
@@ -53,17 +60,25 @@ class NaverSearchRemoteDataSourceImpl(
             dCatg
         ).toData()
 
-    override suspend fun fetchAdultAsync(query: String) =
-        naverSearchApi.fetchAdult(query).toData()
+    override suspend fun fetchAdultAsync(
+        clientId: String,
+        clientSecret: String,
+        query: String
+    ) =
+        naverSearchApi.fetchAdult(clientId, clientSecret, query).toData()
 
     override suspend fun fetchEncycAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
     ) =
-        naverSearchApi.fetchEncyc(query, display, start).toData()
+        naverSearchApi.fetchEncyc(clientId, clientSecret, query, display, start).toData()
 
     override suspend fun fetchMovieAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
@@ -72,64 +87,106 @@ class NaverSearchRemoteDataSourceImpl(
         yearFrom: Int?,
         yearTo: Int?
     ) =
-        naverSearchApi.fetchMovie(query, display, start, genre, country, yearFrom, yearTo).toData()
+        naverSearchApi.fetchMovie(
+            clientId,
+            clientSecret,
+            query,
+            display,
+            start,
+            genre,
+            country,
+            yearFrom,
+            yearTo
+        ).toData()
 
     override suspend fun fetchCafearticleAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
     ) =
-        naverSearchApi.fetchCafearticle(query, display, start, sort).toData()
+        naverSearchApi.fetchCafearticle(
+            clientId,
+            clientSecret,
+            query,
+            display,
+            start,
+            sort
+        ).toData()
 
     override suspend fun fetchKinAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchKinSortCategory
     ) =
-        naverSearchApi.fetchKin(query, display, start, sort).toData()
+        naverSearchApi.fetchKin(clientId, clientSecret, query, display, start, sort).toData()
 
     override suspend fun fetchLocalAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory
     ) =
-        naverSearchApi.fetchLocal(query, display, start, sort).toData()
+        naverSearchApi.fetchLocal(clientId, clientSecret, query, display, start, sort).toData()
 
-    override suspend fun fetchErrataAsync(query: String) =
-        naverSearchApi.fetchErrata(query).toData()
+    override suspend fun fetchErrataAsync(
+        clientId: String,
+        clientSecret: String, query: String
+    ) =
+        naverSearchApi.fetchErrata(clientId, clientSecret, query).toData()
 
     override suspend fun fetchWebkrAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
     ) =
-        naverSearchApi.fetchWebkr(query, display, start).toData()
+        naverSearchApi.fetchWebkr(clientId, clientSecret, query, display, start).toData()
 
     override suspend fun fetchImageAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory,
         filter: NaverSearchImageFilterCategory
     ) =
-        naverSearchApi.fetchImage(query, display, start, sort, filter).toData()
+        naverSearchApi.fetchImage(
+            clientId,
+            clientSecret,
+            query,
+            display,
+            start,
+            sort,
+            filter
+        ).toData()
 
     override suspend fun fetchShopAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int,
         sort: NaverSearchShoppingSortCategory
     ) =
-        naverSearchApi.fetchShop(query, display, start, sort).toData()
+        naverSearchApi.fetchShop(clientId, clientSecret, query, display, start, sort).toData()
 
     override suspend fun fetchDocAsync(
+        clientId: String,
+        clientSecret: String,
         query: String,
         display: Int,
         start: Int
     ) =
-        naverSearchApi.fetchDoc(query, display, start).toData()
+        naverSearchApi.fetchDoc(clientId, clientSecret, query, display, start).toData()
 
 }

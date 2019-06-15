@@ -8,6 +8,8 @@ import com.googry.naver.domain.repository.NaverSearchRepository
 class GetNaverSearchMovieUseCase(private val naverSearchRepository: NaverSearchRepository) {
 
     suspend operator fun invoke(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -16,5 +18,15 @@ class GetNaverSearchMovieUseCase(private val naverSearchRepository: NaverSearchR
         yearFrom: Int? = null,
         yearTo: Int? = null
     ) =
-        naverSearchRepository.getMovie(query, display, start, genre, country, yearFrom, yearTo)
+        naverSearchRepository.getMovie(
+            clientId,
+            clientSecret,
+            query,
+            display,
+            start,
+            genre,
+            country,
+            yearFrom,
+            yearTo
+        )
 }

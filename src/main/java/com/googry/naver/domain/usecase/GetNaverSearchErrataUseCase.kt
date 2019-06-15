@@ -5,7 +5,9 @@ import com.googry.naver.domain.repository.NaverSearchRepository
 class GetNaverSearchErrataUseCase(private val naverSearchRepository: NaverSearchRepository) {
 
     suspend operator fun invoke(
+        clientId: String,
+        clientSecret: String,
         query: String
     ) =
-        naverSearchRepository.getErrata(query)
+        naverSearchRepository.getErrata(clientId, clientSecret, query)
 }

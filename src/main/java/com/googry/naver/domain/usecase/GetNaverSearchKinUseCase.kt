@@ -7,10 +7,12 @@ import com.googry.naver.domain.repository.NaverSearchRepository
 class GetNaverSearchKinUseCase(private val naverSearchRepository: NaverSearchRepository) {
 
     suspend operator fun invoke(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchKinSortCategory = NaverSearchKinSortCategory.SIM
     ) =
-        naverSearchRepository.getKin(query, display, start, sort)
+        naverSearchRepository.getKin(clientId, clientSecret, query, display, start, sort)
 }

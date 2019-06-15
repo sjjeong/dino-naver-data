@@ -1,28 +1,33 @@
 package com.googry.naver.domain.repository
 
 import androidx.annotation.IntRange
-import androidx.lifecycle.LiveData
 import com.dino.library.data.DataResource
-
 import com.googry.naver.domain.model.enums.*
 import com.googry.naver.domain.model.search.*
+import kotlinx.coroutines.flow.Flow
 
 interface NaverSearchRepository {
     suspend fun getBlog(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): LiveData<DataResource<List<NaverSearchBlog>>>
+    ): Flow<DataResource<List<NaverSearchBlog>>>
 
     suspend fun getNews(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): LiveData<DataResource<List<NaverSearchNews>>>
+    ): Flow<DataResource<List<NaverSearchNews>>>
 
     suspend fun getBook(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -35,19 +40,25 @@ interface NaverSearchRepository {
         dDafr: String = "",
         dDato: String = "",
         dCatg: String = ""
-    ): LiveData<DataResource<List<NaverSearchBook>>>
+    ): Flow<DataResource<List<NaverSearchBook>>>
 
     suspend fun getAdult(
+        clientId: String,
+        clientSecret: String,
         query: String
-    ): LiveData<DataResource<NaverSearchAdult>>
+    ): Flow<DataResource<NaverSearchAdult>>
 
     suspend fun getEncyc(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): LiveData<DataResource<List<NaverSearchEncyc>>>
+    ): Flow<DataResource<List<NaverSearchEncyc>>>
 
     suspend fun getMovie(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
@@ -55,58 +66,74 @@ interface NaverSearchRepository {
         country: NaverSearchCountryCategory? = null,
         yearFrom: Int? = null,
         yearTo: Int? = null
-    ): LiveData<DataResource<List<NaverSearchMovie>>>
+    ): Flow<DataResource<List<NaverSearchMovie>>>
 
     suspend fun getCafearticle(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchSortCategory = NaverSearchSortCategory.SIM
-    ): LiveData<DataResource<List<NaverSearchCafearticle>>>
+    ): Flow<DataResource<List<NaverSearchCafearticle>>>
 
     suspend fun getKin(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchKinSortCategory = NaverSearchKinSortCategory.SIM
-    ): LiveData<DataResource<List<NaverSearchKin>>>
+    ): Flow<DataResource<List<NaverSearchKin>>>
 
     suspend fun getLocal(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchLocalCategory = NaverSearchLocalCategory.RANDOM
-    ): LiveData<DataResource<List<NaverSearchLocal>>>
+    ): Flow<DataResource<List<NaverSearchLocal>>>
 
     suspend fun getErrata(
+        clientId: String,
+        clientSecret: String,
         query: String
-    ): LiveData<DataResource<NaverSearchErrata>>
+    ): Flow<DataResource<NaverSearchErrata>>
 
     suspend fun getWebkr(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): LiveData<DataResource<List<NaverSearchWebkr>>>
+    ): Flow<DataResource<List<NaverSearchWebkr>>>
 
     suspend fun getImage(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchLocalCategory = NaverSearchLocalCategory.RANDOM,
         filter: NaverSearchImageFilterCategory = NaverSearchImageFilterCategory.ALL
-    ): LiveData<DataResource<List<NaverSearchImage>>>
+    ): Flow<DataResource<List<NaverSearchImage>>>
 
     suspend fun getShop(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1,
         sort: NaverSearchShoppingSortCategory = NaverSearchShoppingSortCategory.SIM
-    ): LiveData<DataResource<List<NaverSearchShop>>>
+    ): Flow<DataResource<List<NaverSearchShop>>>
 
     suspend fun getDoc(
+        clientId: String,
+        clientSecret: String,
         query: String,
         @IntRange(from = 10, to = 100) display: Int = 10,
         @IntRange(from = 1, to = 1000) start: Int = 1
-    ): LiveData<DataResource<List<NaverSearchDoc>>>
+    ): Flow<DataResource<List<NaverSearchDoc>>>
 
 }
