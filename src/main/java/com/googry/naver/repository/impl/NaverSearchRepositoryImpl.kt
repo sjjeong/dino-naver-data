@@ -1,13 +1,11 @@
 package com.googry.naver.repository.impl
 
-import com.dino.library.data.DataResource
+import com.dino.library.util.DataRemoteBoundResource
 import com.googry.naver.domain.model.enums.*
 import com.googry.naver.domain.model.search.*
 import com.googry.naver.domain.repository.NaverSearchRepository
-import com.googry.naver.repository.model.search.toDomain
+import com.googry.naver.repository.model.search.*
 import com.googry.naver.repository.source.NaverSearchDataSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class NaverSearchRepositoryImpl(
     private val naverSearchRemoteDataSource: NaverSearchDataSource
@@ -20,10 +18,9 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): Flow<DataResource<List<NaverSearchBlog>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchBlog>, List<NaverSearchBlogEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchBlogAsync(
                     clientId,
                     clientSecret,
@@ -31,14 +28,11 @@ class NaverSearchRepositoryImpl(
                     display,
                     start,
                     sort
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchBlogEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getNews(
         clientId: String,
@@ -47,10 +41,9 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): Flow<DataResource<List<NaverSearchNews>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchNews>, List<NaverSearchNewsEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchNewsAsync(
                     clientId,
                     clientSecret,
@@ -58,14 +51,11 @@ class NaverSearchRepositoryImpl(
                     display,
                     start,
                     sort
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchNewsEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getBook(
         clientId: String,
@@ -82,10 +72,9 @@ class NaverSearchRepositoryImpl(
         dDafr: String,
         dDato: String,
         dCatg: String
-    ): Flow<DataResource<List<NaverSearchBook>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchBook>, List<NaverSearchBookEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchBookAsync(
                     clientId, clientSecret,
                     query,
@@ -100,33 +89,28 @@ class NaverSearchRepositoryImpl(
                     dDafr,
                     dDato,
                     dCatg
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchBookEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getAdult(
         clientId: String,
         clientSecret: String,
         query: String
-    ): Flow<DataResource<NaverSearchAdult>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<NaverSearchAdult, NaverSearchAdultEntity>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchAdultAsync(
                     clientId,
                     clientSecret,
                     query
-                ).toDomain()
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: NaverSearchAdultEntity) =
+                dataType.toDomain()
+        }.flow()
 
     override suspend fun getEncyc(
         clientId: String,
@@ -134,24 +118,20 @@ class NaverSearchRepositoryImpl(
         query: String,
         display: Int,
         start: Int
-    ): Flow<DataResource<List<NaverSearchEncyc>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchEncyc>, List<NaverSearchEncycEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchEncycAsync(
                     clientId,
                     clientSecret,
                     query,
                     display,
                     start
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchEncycEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getMovie(
         clientId: String,
@@ -163,10 +143,9 @@ class NaverSearchRepositoryImpl(
         country: NaverSearchCountryCategory?,
         yearFrom: Int?,
         yearTo: Int?
-    ): Flow<DataResource<List<NaverSearchMovie>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchMovie>, List<NaverSearchMovieEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchMovieAsync(
                     clientId, clientSecret,
                     query,
@@ -176,14 +155,11 @@ class NaverSearchRepositoryImpl(
                     country,
                     yearFrom,
                     yearTo
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchMovieEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getCafearticle(
         clientId: String,
@@ -192,26 +168,22 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchSortCategory
-    ): Flow<DataResource<List<NaverSearchCafearticle>>> = flow {
-        emit(DataResource.loading())
-        val liveData =
-            try {
-                emit(DataResource.success(
-                    naverSearchRemoteDataSource.fetchCafearticleAsync(
-                        clientId,
-                        clientSecret,
-                        query,
-                        display,
-                        start,
-                        sort
-                    ).map {
-                        it.toDomain()
-                    }
-                ))
-            } catch (e: Exception) {
-                emit(DataResource.error(e))
-            }
-    }
+    ) =
+        object :
+            DataRemoteBoundResource<List<NaverSearchCafearticle>, List<NaverSearchCafearticleEntity>>() {
+            override suspend fun createRemoteSourceResult() =
+                naverSearchRemoteDataSource.fetchCafearticleAsync(
+                    clientId,
+                    clientSecret,
+                    query,
+                    display,
+                    start,
+                    sort
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchCafearticleEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getKin(
         clientId: String,
@@ -220,10 +192,9 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchKinSortCategory
-    ): Flow<DataResource<List<NaverSearchKin>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchKin>, List<NaverSearchKinEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchKinAsync(
                     clientId,
                     clientSecret,
@@ -231,14 +202,11 @@ class NaverSearchRepositoryImpl(
                     display,
                     start,
                     sort
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchKinEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getLocal(
         clientId: String,
@@ -247,10 +215,9 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchLocalCategory
-    ): Flow<DataResource<List<NaverSearchLocal>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchLocal>, List<NaverSearchLocalEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchLocalAsync(
                     clientId,
                     clientSecret,
@@ -258,33 +225,28 @@ class NaverSearchRepositoryImpl(
                     display,
                     start,
                     sort
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchLocalEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getErrata(
         clientId: String,
         clientSecret: String,
         query: String
-    ): Flow<DataResource<NaverSearchErrata>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<NaverSearchErrata, NaverSearchErrataEntity>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchErrataAsync(
                     clientId,
                     clientSecret,
                     query
-                ).toDomain()
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: NaverSearchErrataEntity) =
+                dataType.toDomain()
+        }.flow()
 
     override suspend fun getWebkr(
         clientId: String,
@@ -292,24 +254,20 @@ class NaverSearchRepositoryImpl(
         query: String,
         display: Int,
         start: Int
-    ): Flow<DataResource<List<NaverSearchWebkr>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchWebkr>, List<NaverSearchWebkrEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchWebkrAsync(
                     clientId,
                     clientSecret,
                     query,
                     display,
                     start
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchWebkrEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getImage(
         clientId: String,
@@ -319,10 +277,9 @@ class NaverSearchRepositoryImpl(
         start: Int,
         sort: NaverSearchLocalCategory,
         filter: NaverSearchImageFilterCategory
-    ): Flow<DataResource<List<NaverSearchImage>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchImage>, List<NaverSearchImageEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchImageAsync(
                     clientId, clientSecret,
                     query,
@@ -330,14 +287,11 @@ class NaverSearchRepositoryImpl(
                     start,
                     sort,
                     filter
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchImageEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getShop(
         clientId: String,
@@ -346,10 +300,9 @@ class NaverSearchRepositoryImpl(
         display: Int,
         start: Int,
         sort: NaverSearchShoppingSortCategory
-    ): Flow<DataResource<List<NaverSearchShop>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchShop>, List<NaverSearchShopEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchShopAsync(
                     clientId,
                     clientSecret,
@@ -357,14 +310,11 @@ class NaverSearchRepositoryImpl(
                     display,
                     start,
                     sort
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchShopEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 
     override suspend fun getDoc(
         clientId: String,
@@ -372,22 +322,18 @@ class NaverSearchRepositoryImpl(
         query: String,
         display: Int,
         start: Int
-    ): Flow<DataResource<List<NaverSearchDoc>>> = flow {
-        emit(DataResource.loading())
-        try {
-            emit(DataResource.success(
+    ) =
+        object : DataRemoteBoundResource<List<NaverSearchDoc>, List<NaverSearchDocEntity>>() {
+            override suspend fun createRemoteSourceResult() =
                 naverSearchRemoteDataSource.fetchDocAsync(
                     clientId,
                     clientSecret,
                     query,
                     display,
                     start
-                ).map {
-                    it.toDomain()
-                }
-            ))
-        } catch (e: Exception) {
-            emit(DataResource.error(e))
-        }
-    }
+                )
+
+            override suspend fun convertDataToDomain(dataType: List<NaverSearchDocEntity>) =
+                dataType.map { it.toDomain() }
+        }.flow()
 }
